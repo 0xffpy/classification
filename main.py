@@ -21,17 +21,18 @@ list_x = []
 
 
 def main():
-    parent_file = r"pictures_to_process"
+    parent_file = r"/home/esh/Downloads/pictures"
     count = 0
     while True:
+        rotated = False
         try:
-            list_of_pictures = [x for x in os.listdir(parent_file) if ".txt" not in x][1:40]
+            list_of_pictures = [x for x in os.listdir(parent_file) if ".txt" not in x][2:40]
         except FileNotFoundError:
             continue
         for i in list_of_pictures:
             loaded_image = cv2.imread(os.path.join(parent_file, i))
-            mser_obj = MserDetection(loaded_image, 0, 1000, 500, 100000, 5, None)
-            box = mser_obj.mser_create(False)
+            mser_obj = MserDetection(loaded_image, 0, 150, 500, 5000, 5, None)
+            box = mser_obj.mser_create(True)
             for j in box:
                 try:
                     x_min, y_min, x_max, y_max = j
@@ -52,7 +53,7 @@ def main():
                     print("Value detection error")
                     print("Continuing")
                     continue
-
+                # here is the UI
                 prompt = int(input("enter a 0 to cancel 1 to continue"))
                 localization_obj = Loclization(center_of_y=(y_min + int(abs(y_min - y_max) / 2)),
                                                center_of_x=(x_min + int(abs(x_min - x_max) / 2)),

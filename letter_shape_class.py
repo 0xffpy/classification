@@ -26,8 +26,8 @@ color_encoding = {"WHITE": 1, "BLACK": 2, "GRAY": 3, "RED": 4, "BLUE": 5,
                   "GREEN": 6, "YELLOW": 7, "PURPLE": 8, "BRONW": 9,
                   "ORANGE": 10}
 
-shape_model = pickle.load(open(r"C:\Users\Faisal Eid alharbi\PycharmProjects\pythonProject7\shape_model_pickle", 'rb'))
-color_model = pickle.load(open(r"C:\Users\Faisal Eid alharbi\PycharmProjects\pythonProject7\knn_file", 'rb'))
+shape_model = pickle.load(open(r"shape_model_pickle", 'rb'))
+color_model = pickle.load(open(r"knn_file", 'rb'))
 ocr = PaddleOCR(lang='en')
 
 model_vgg = VGG16(include_top=False,
@@ -201,7 +201,8 @@ class Classification:
             percent.append(j)
             colors.append(color_model.predict(center[i].reshape(1, -1)))
         colors = [color_encoding[x] for x in colors]
-        return colors[0] if colors[0] not in self.predicted_colors else colors[1] if colors[1] not in self.predicted_colors \
+        return colors[0] if colors[0] not in self.predicted_colors else colors[1] if colors[
+                                                                                         1] not in self.predicted_colors \
             else colors[2]
 
     def get_letter_color(self):

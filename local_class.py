@@ -40,4 +40,3 @@ class Loclization:
 
     def oriantation(self):
         return None
-
